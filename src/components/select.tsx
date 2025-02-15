@@ -5,7 +5,7 @@ interface SelectProps {
 	label: string;
 	onChange: (value: ChangeEvent<HTMLSelectElement>) => void;
 	options: { value: string | number; name: string }[];
-	isDisabled?: false;
+	isDisabled?: boolean;
 }
 export const Select = ({
 	label,

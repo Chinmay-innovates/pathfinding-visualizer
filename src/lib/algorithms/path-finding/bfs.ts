@@ -1,49 +1,41 @@
 import { getUnvisitedNeighbors } from "../../../utils/get-unvisited-neighbors";
 import { isEqual } from "../../../utils/helpers";
-import { isInQueue } from "../../../utils/is-in-queue";
 import { GridType, TileType } from "../../../utils/types";
 
 export const BFS = (grid: GridType, startTile: TileType, endTile: TileType) => {
-	const visited: TileType[] = [startTile];
+	const visitedTiles: TileType[] = [];
 	const base = grid[startTile.row][startTile.col];
 	base.distance = 0;
 	base.isTraversed = true;
+	const unTraversed = [base]; // Initialize the queue with the start tile
 
-	const unvisited = [base];
-
-	while (unvisited.length) {
-		const tile = unvisited.shift() as TileType;
+	while (unTraversed.length > 0) {
+		const tile = unTraversed.shift() as TileType;
 		if (tile.isWall) continue;
 		if (tile.distance === Infinity) break;
 
 		tile.isTraversed = true;
-		visited.push(tile);
-
+		visitedTiles.push(tile);
 		if (isEqual(tile, endTile)) break;
 
 		const neighbors = getUnvisitedNeighbors(grid, tile);
-
-		for (let i = 0; i < neighbors.length; i++) {
-			if (!isInQueue(neighbors[i], unvisited)) {
-				const neighbor = neighbors[i];
+		for (const neighbor of neighbors) {
+			if (!neighbor.isTraversed && !neighbor.isWall) {
+				neighbor.isTraversed = true;
 				neighbor.distance = tile.distance + 1;
 				neighbor.parent = tile;
-				unvisited.push(neighbor);
+				unTraversed.push(neighbor);
 			}
 		}
 	}
 
-	const path = [];
+	const path: TileType[] = [];
 	let tile = grid[endTile.row][endTile.col];
-
 	while (tile !== null) {
+		// Backtrack until the start tile
 		tile.isPath = true;
 		path.unshift(tile);
-		tile = tile.parent!;
+		tile = tile.parent as TileType;
 	}
-
-	return {
-		path,
-		visited,
-	};
+	return { visitedTiles, path };
 };

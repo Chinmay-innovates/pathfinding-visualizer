@@ -65,6 +65,12 @@ export function formatUpper(str: string) {
 	return str.replace(/_/g, " ").toUpperCase();
 }
 
+export const checkStack = (tile: TileType, stack: TileType[]) => {
+	for (let i = 0; i < stack.length; i++) {
+		if (isEqual(tile, stack[i])) return true;
+	}
+	return false;
+};
 export class DSU {
 	private parent: Map<string, string>;
 	private rank: Map<string, number>;

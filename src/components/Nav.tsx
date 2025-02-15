@@ -72,14 +72,14 @@ export const Nav = ({
 			return;
 		}
 
-		const { path, visited } = runPathFindingAlgorithm({
+		const { path, visitedTiles } = runPathFindingAlgorithm({
 			algorithm,
 			grid,
 			startTile,
 			endTile,
 		});
 
-		animatePath(visited, path, startTile, endTile, speed);
+		animatePath(visitedTiles, path, startTile, endTile, speed);
 		setIsDisabled(true);
 
 		isVizRunningRef.current = true;
@@ -90,12 +90,12 @@ export const Nav = ({
 			setIsGraphVisualized(true);
 			setIsDisabled(false);
 			isVizRunningRef.current = false;
-		}, SLEEP_TIME * (visited.length + SLEEP_TIME * 2) + EXTENDED_SLEEP_TIME * (path.length + 60) * SPEEDS.find((s) => s.value === speed)!.value);
+		}, SLEEP_TIME * (visitedTiles.length + SLEEP_TIME * 2) + EXTENDED_SLEEP_TIME * (path.length + 50) * SPEEDS.find((s) => s.value === speed)!.value);
 	};
 
 	return (
-		<div className="flex items-center justify-between min-h-[4.5rem] border-b shadow-gray-600 sm:px-5 px-0">
-			<h1 className="pl-1 text-2xl font-semibold hover:text-emerald-500 transition ease-in">
+		<div className="flex - items-center justify-center min-h-[4.5rem] border-b shadow-gray-600 sm:px-5 px-0">
+			<h1 className="pl-1 lg:flex hidden text-2xl font-semibold hover:text-emerald-500 transition ease-in">
 				Path Finding Visualizer
 			</h1>
 
@@ -103,6 +103,7 @@ export const Nav = ({
 				<Select
 					label="Graph"
 					value={algorithm}
+					isDisabled={isDisabled}
 					onChange={(e: ChangeEvent<HTMLSelectElement>) => {
 						setAlgorithm(e.target.value as AlgorithmType);
 					}}
@@ -116,6 +117,7 @@ export const Nav = ({
 				<Select
 					label="Maze"
 					value={maze}
+					isDisabled={isDisabled}
 					onChange={(e: ChangeEvent<HTMLSelectElement>) => {
 						handleGenerateMaze(e.target.value as MazeType);
 					}}
@@ -126,6 +128,7 @@ export const Nav = ({
 			<Select
 				label="Speed"
 				value={speed}
+				isDisabled={isDisabled}
 				onChange={(e: ChangeEvent<HTMLSelectElement>) => {
 					setSpeed(parseInt(e.target.value) as SpeedType);
 				}}

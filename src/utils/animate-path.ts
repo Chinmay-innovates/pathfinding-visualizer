@@ -23,7 +23,7 @@ export const animatePath = (
 			if (!isEqual(tile, startTile) && !isEqual(tile, endTile)) {
 				document.getElementById(
 					`${tile.row}-${tile.col}`
-				)!.className = `${TRAVERSED_TILE_STYLE} animate-travered`;
+				)!.className = `${TRAVERSED_TILE_STYLE} animate-traversed`;
 			}
 		}, SLEEP_TIME * i * SPEEDS.find((s) => s.value === speed)!.value);
 	}
