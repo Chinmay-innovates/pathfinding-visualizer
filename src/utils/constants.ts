@@ -49,7 +49,6 @@ export const PATHFINDING_ALGORITHMS: AlgorithmSelectType[] = [
 	{ name: "A-Star", value: "A_STAR" },
 	{ name: "Breath First Search", value: "BFS" },
 	{ name: "Depth First Search", value: "DFS" },
-	{ name: "Depth First Search", value: "DFS" },
 	{ name: "Greedy Best First Search", value: "GBFS" },
 ];
 

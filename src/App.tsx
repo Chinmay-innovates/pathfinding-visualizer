@@ -1,9 +1,9 @@
 import { useRef } from "react";
 import { Grid } from "./components/grid";
-import { PathFindingProvider } from "./context/path-finding-context";
-import { SpeedProvider } from "./context/speed-context";
-import { TileProvider } from "./context/tile-context";
+import { PathFindingProvider } from "./providers/path-finding-provider";
+import { SpeedProvider } from "./providers/speed-provider";
 import { Nav } from "./components/Nav";
+import { TileProvider } from "./providers/tile-provider";
 
 function App() {
 	const isVizRunningRef = useRef<boolean>(false);

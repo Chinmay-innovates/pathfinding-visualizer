@@ -26,7 +26,6 @@ export type TileType = {
 	isTraversed: boolean;
 	isStart: boolean;
 	parent: TileType | null;
-	cost?: number;
 };
 
 export type GridType = TileType[][];
@@ -36,3 +35,10 @@ export interface SpeedSelectType {
 	name: string;
 	value: SpeedType;
 }
+
+export type _ShuffleArray = {
+	wallRow: number;
+	wallCol: number;
+	currCell: TileType;
+	nextCell: TileType;
+}[];

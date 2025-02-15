@@ -14,7 +14,7 @@ export const GBFS = (
 
 	const base = grid[startTile.row][startTile.col];
 	base.distance = 0;
-	base.isTraversed = true;
+	// base.isTraversed = true;
 
 	const unTraversed = [base]; // Priority queue
 
@@ -28,6 +28,7 @@ export const GBFS = (
 		if (currTile.isWall) continue;
 
 		visitedTiles.push(currTile);
+		currTile.isTraversed = true;
 
 		if (isEqual(currTile, endTile)) break;
 
@@ -35,7 +36,7 @@ export const GBFS = (
 
 		for (const neighbor of neighbors) {
 			if (!neighbor.isTraversed && !neighbor.isWall) {
-				neighbor.isTraversed = true;
+				// neighbor.isTraversed = true;
 				neighbor.parent = currTile;
 				unTraversed.push(neighbor);
 			}

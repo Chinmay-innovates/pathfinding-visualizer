@@ -68,13 +68,32 @@ export const Nav = ({
 	const handleRunVisualization = () => {
 		if (isGraphVisualized) {
 			setIsGraphVisualized(false);
-			resetGrid({ grid: grid.slice(), startTile, endTile });
+			const resetGrid = grid.map((row) =>
+				row.map((cell) => ({
+					...cell,
+					isTraversed: false,
+					isPath: false,
+					distance: Infinity,
+					parent: null,
+				}))
+			);
+			setGrid(resetGrid);
 			return;
 		}
 
+		const sanitizedGrid = grid.map((row) =>
+			row.map((cell) => ({
+				...cell,
+				isTraversed: false,
+				isPath: false,
+				distance: Infinity,
+				parent: null,
+			}))
+		);
+
 		const { path, visitedTiles } = runPathFindingAlgorithm({
 			algorithm,
-			grid,
+			grid: sanitizedGrid,
 			startTile,
 			endTile,
 		});
@@ -86,14 +105,14 @@ export const Nav = ({
 
 		// Optimized sleep time calculation
 		const visitedDelay = SLEEP_TIME * (visitedTiles.length + SLEEP_TIME * 2);
-		const pathDelay = EXTENDED_SLEEP_TIME * (path.length + 50);
+		const pathDelay = EXTENDED_SLEEP_TIME * (path.length + 40);
 		const speedMultiplier = SPEEDS.find((s) => s.value === speed)!.value;
 
 		const totalSleepTime = visitedDelay + pathDelay * speedMultiplier;
 
 		setTimeout(() => {
-			const newGrid = grid.slice();
-			setGrid(newGrid);
+			// const newGrid = grid.slice();
+			setGrid(sanitizedGrid);
 			setIsGraphVisualized(true);
 			setIsDisabled(false);
 			isVizRunningRef.current = false;
