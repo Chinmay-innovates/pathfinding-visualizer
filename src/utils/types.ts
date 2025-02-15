@@ -1,4 +1,4 @@
-export type AlgorithmType = "DIJKSTRA" | "A_STAR" | "BFS" | "DFS";
+export type AlgorithmType = "DIJKSTRA" | "A_STAR" | "BFS" | "DFS" | "GBFS";
 export interface AlgorithmSelectType {
 	name: string;
 	value: AlgorithmType;

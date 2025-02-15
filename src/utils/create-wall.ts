@@ -8,8 +8,7 @@ export const createWall = (
 	speed: SpeedType
 ) => {
 	const delay = 6 * SPEEDS.find((s) => s.value === speed)!.value - 1;
-	const delayPerColumn = delay * MAX_COLS;
-
+	const delayPerTile = delay * (MAX_ROWS / 2);
 	for (let row = 0; row < MAX_ROWS; row++) {
 		setTimeout(() => {
 			for (let col = 0; col < MAX_COLS; col++) {
@@ -18,12 +17,14 @@ export const createWall = (
 						!isRowColEqual(row, col, startTile) &&
 						!isRowColEqual(row, col, endTile)
 					) {
-						document.getElementById(
-							`${row}-${col}`
-						)!.className = `${WALL_TILE_STYLE} animate-wall`;
+						setTimeout(() => {
+							document.getElementById(
+								`${row}-${col}`
+							)!.className = `${WALL_TILE_STYLE} animate-wall`;
+						}, delay * col);
 					}
 				}
 			}
-		}, row * delayPerColumn);
+		}, delayPerTile * row);
 	}
 };

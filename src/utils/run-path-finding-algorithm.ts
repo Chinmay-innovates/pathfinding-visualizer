@@ -4,6 +4,7 @@ import { A_STAR } from "../lib/algorithms/path-finding/a-star";
 import { DIJKSTRA } from "../lib/algorithms/path-finding/dijkstra";
 
 import { AlgorithmType, GridType, TileType } from "./types";
+import { GBFS } from "../lib/algorithms/path-finding/gbfs";
 
 export const runPathFindingAlgorithm = ({
 	algorithm,
@@ -25,6 +26,8 @@ export const runPathFindingAlgorithm = ({
 			return DIJKSTRA(grid, startTile, endTile);
 		case "A_STAR":
 			return A_STAR(grid, startTile, endTile);
+		case "GBFS":
+			return GBFS(grid, startTile, endTile);
 		default:
 			return BFS(grid, startTile, endTile);
 	}
