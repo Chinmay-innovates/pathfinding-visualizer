@@ -27,11 +27,8 @@ export const createGrid = (startTile: TileType, endTile: TileType) => {
 	return grid;
 };
 
-export const checkIfDefault = (row: number, col: number) => {
-	return (
-		(row === 1 && col === 1) || (row === MAX_ROWS - 2 && col === MAX_COLS - 2)
-	);
-};
+export const checkIfDefault = (row: number, col: number) =>
+	(row === 1 && col === 1) || (row === MAX_ROWS - 2 && col === MAX_COLS - 2);
 
 export const createNewGrid = (grid: GridType, row: number, col: number) => {
 	const newGrid = grid.slice();
@@ -44,12 +41,11 @@ export const createNewGrid = (grid: GridType, row: number, col: number) => {
 	return newGrid;
 };
 
-export const isEqual = (tile1: TileType, tile2: TileType) => {
-	return tile1.row === tile2.row && tile1.col === tile2.col;
-};
-export const isRowColEqual = (row: number, col: number, tile: TileType) => {
-	return row === tile.row && col === tile.col;
-};
+export const isEqual = (tile1: TileType, tile2: TileType) =>
+	tile1.row === tile2.row && tile1.col === tile2.col;
+
+export const isRowColEqual = (row: number, col: number, tile: TileType) =>
+	row === tile.row && col === tile.col;
 
 export const sleep = (ms: number) =>
 	new Promise((resolve) => setTimeout(resolve, ms));
@@ -64,13 +60,6 @@ export const getRandInt = (min: number, max: number) => {
 export function formatUpper(str: string) {
 	return str.replace(/_/g, " ").toUpperCase();
 }
-
-export const checkStack = (tile: TileType, stack: TileType[]) => {
-	for (let i = 0; i < stack.length; i++) {
-		if (isEqual(tile, stack[i])) return true;
-	}
-	return false;
-};
 
 export const dropFromQueue = (tile: TileType, queue: TileType[]) => {
 	for (let i = 0; i < queue.length; i++) {
