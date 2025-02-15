@@ -134,3 +134,77 @@ export function shuffleArray(array: any[]) {
 		[array[i], array[j]] = [array[j], array[i]];
 	}
 }
+
+export class MinHeap<T> {
+	private heap: T[];
+	private compare: (a: T, b: T) => number;
+
+	constructor(compareFn: (a: T, b: T) => number) {
+		this.heap = [];
+		this.compare = compareFn;
+	}
+
+	private parent(index: number): number {
+		return Math.floor((index - 1) / 2);
+	}
+
+	private leftChild(index: number): number {
+		return index * 2 + 1;
+	}
+
+	private rightChild(index: number): number {
+		return index * 2 + 2;
+	}
+
+	private swap(i: number, j: number): void {
+		[this.heap[i], this.heap[j]] = [this.heap[j], this.heap[i]];
+	}
+
+	private heapifyUp(): void {
+		let index = this.heap.length - 1;
+		while (
+			index > 0 &&
+			this.compare(this.heap[index], this.heap[this.parent(index)]) < 0
+		) {
+			this.swap(index, this.parent(index));
+			index = this.parent(index);
+		}
+	}
+
+	private heapifyDown(): void {
+		let index = 0;
+		while (this.leftChild(index) < this.heap.length) {
+			let smallerChild = this.leftChild(index);
+			if (
+				this.rightChild(index) < this.heap.length &&
+				this.compare(
+					this.heap[this.rightChild(index)],
+					this.heap[smallerChild]
+				) < 0
+			) {
+				smallerChild = this.rightChild(index);
+			}
+			if (this.compare(this.heap[index], this.heap[smallerChild]) <= 0) break;
+			this.swap(index, smallerChild);
+			index = smallerChild;
+		}
+	}
+
+	insert(value: T): void {
+		this.heap.push(value);
+		this.heapifyUp();
+	}
+
+	extractMin(): T | null {
+		if (this.heap.length === 0) return null;
+		if (this.heap.length === 1) return this.heap.pop()!;
+		const min = this.heap[0];
+		this.heap[0] = this.heap.pop()!;
+		this.heapifyDown();
+		return min;
+	}
+
+	isEmpty(): boolean {
+		return this.heap.length === 0;
+	}
+}

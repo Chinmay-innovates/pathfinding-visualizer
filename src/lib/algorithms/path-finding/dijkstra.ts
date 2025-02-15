@@ -1,5 +1,6 @@
+import { constructPath } from "../../../utils/construct-path";
 import { getUnvisitedNeighbors } from "../../../utils/get-unvisited-neighbors";
-import { dropFromQueue, isEqual } from "../../../utils/helpers";
+import { isEqual, MinHeap } from "../../../utils/helpers";
 import { GridType, TileType } from "../../../utils/types";
 
 export const DIJKSTRA = (
@@ -9,47 +10,33 @@ export const DIJKSTRA = (
 ) => {
 	const visitedTiles: TileType[] = [];
 	const base = grid[startTile.row][startTile.col];
-
 	base.distance = 0;
 	base.isTraversed = true;
 
-	const unvisitedTiles = [base]; // Initialize the queue with the start tile
+	const priorityQueue = new MinHeap<TileType>(
+		(a, b) => a.distance - b.distance
+	);
+	priorityQueue.insert(base);
 
-	while (unvisitedTiles.length > 0) {
-		unvisitedTiles.sort((a, b) => a.distance - b.distance);
-		const currTile = unvisitedTiles.shift() as TileType;
+	while (!priorityQueue.isEmpty()) {
+		const currTile = priorityQueue.extractMin() as TileType;
+		if (currTile.isWall) continue;
+		if (currTile.distance === Infinity) break;
 
-		if (currTile) {
-			if (currTile.isWall) continue;
-			if (currTile.distance === Infinity) break;
+		visitedTiles.push(currTile);
+		currTile.isTraversed = true;
 
-			currTile.isTraversed = true;
-			visitedTiles.push(currTile);
+		if (isEqual(currTile, endTile)) break;
 
-			if (isEqual(currTile, endTile)) break;
-
-			const neighbors = getUnvisitedNeighbors(grid, currTile);
-
-			for (let i = 0; i < neighbors.length; i++) {
-				if (currTile.distance + 1 < neighbors[i].distance) {
-					dropFromQueue(neighbors[i], unvisitedTiles);
-					neighbors[i].distance = currTile.distance + 1;
-					neighbors[i].parent = currTile;
-					unvisitedTiles.push(neighbors[i]);
-				}
+		for (const neighbor of getUnvisitedNeighbors(grid, currTile)) {
+			const newDistance = currTile.distance + 1;
+			if (newDistance < neighbor.distance) {
+				neighbor.distance = newDistance;
+				neighbor.parent = currTile;
+				priorityQueue.insert(neighbor);
 			}
 		}
 	}
 
-	const path: TileType[] = [];
-	let curr = grid[endTile.row][endTile.col];
-	while (curr !== null) {
-		curr.isPath = true;
-		path.unshift(curr);
-		curr = curr.parent as TileType;
-	}
-	return {
-		visitedTiles,
-		path,
-	};
+	return constructPath(grid, endTile, visitedTiles);
 };

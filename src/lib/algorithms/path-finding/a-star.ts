@@ -1,3 +1,4 @@
+import { constructPath } from "../../../utils/construct-path";
 import { getUnvisitedNeighbors } from "../../../utils/get-unvisited-neighbors";
 import { dropFromQueue, isEqual } from "../../../utils/helpers";
 import { initFunctionCost, initHeuristiCost } from "../../../utils/heuristic";
@@ -55,15 +56,5 @@ export const A_STAR = (
 		}
 	}
 
-	const path: TileType[] = [];
-	let tile: TileType = grid[endTile.row][endTile.col];
-	while (tile !== null) {
-		tile.isPath = true;
-		path.unshift(tile);
-		tile = tile.parent as TileType;
-	}
-	return {
-		visitedTiles,
-		path,
-	};
+	return constructPath(grid, endTile, visitedTiles);
 };

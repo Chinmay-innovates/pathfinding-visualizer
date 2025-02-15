@@ -33,7 +33,7 @@ export const TRAVERSED_TILE_STYLE = BASE_TILE_STYLE + " bg-cyan-500";
 export const START_TILE_STYLE = BASE_TILE_STYLE + " bg-green-500";
 export const END_TILE_STYLE = BASE_TILE_STYLE + " bg-red-600";
 export const WALL_TILE_STYLE = BASE_TILE_STYLE + " bg-gray-400";
-export const PATH_TILE_STYLE = BASE_TILE_STYLE + " bg-green-600";
+export const PATH_TILE_STYLE = BASE_TILE_STYLE + " bg-yellow-300";
 
 export const MAZES: MazeSelectType[] = [
 	{ name: "No Maze", value: "NONE" },
