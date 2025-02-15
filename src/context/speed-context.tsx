@@ -17,3 +17,5 @@ export const SpeedProvider = ({ children }: { children: React.ReactNode }) => {
 		</SpeedContext.Provider>
 	);
 };
+
+SpeedContext.displayName = "SpeedContext";

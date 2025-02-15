@@ -28,3 +28,5 @@ export const TileProvider = ({ children }: { children: ReactNode }) => {
 		</TileContext.Provider>
 	);
 };
+
+TileContext.displayName = "TileContext";

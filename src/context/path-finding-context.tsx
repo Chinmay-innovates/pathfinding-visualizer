@@ -43,3 +43,5 @@ export const PathFindingProvider = ({ children }: { children: ReactNode }) => {
 		</PathFindingContext.Provider>
 	);
 };
+
+PathFindingContext.displayName = "PathFindingContext";
