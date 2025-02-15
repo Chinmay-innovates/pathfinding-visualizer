@@ -84,13 +84,21 @@ export const Nav = ({
 
 		isVizRunningRef.current = true;
 
+		// Optimized sleep time calculation
+		const visitedDelay = SLEEP_TIME * visitedTiles.length;
+		const pathDelay = EXTENDED_SLEEP_TIME * path.length;
+		const speedMultiplier = SPEEDS.find((s) => s.value === speed)!.value;
+
+		// Final sleep time (with a small buffer of 300ms for UI updates)
+		const totalSleepTime = (visitedDelay + pathDelay) * speedMultiplier + 300;
+
 		setTimeout(() => {
 			const newGrid = grid.slice();
 			setGrid(newGrid);
 			setIsGraphVisualized(true);
 			setIsDisabled(false);
 			isVizRunningRef.current = false;
-		}, SLEEP_TIME * (visitedTiles.length + SLEEP_TIME * 2) + EXTENDED_SLEEP_TIME * (path.length + 50) * SPEEDS.find((s) => s.value === speed)!.value);
+		}, totalSleepTime);
 	};
 
 	return (
