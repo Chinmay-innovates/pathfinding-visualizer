@@ -3,13 +3,7 @@ import { ChangeEvent, useState } from "react";
 import { AlgorithmType, MazeType, SpeedType } from "../utils/types";
 import { runMazeAlgorithm } from "../utils/run-maze-algorith";
 import { resetGrid } from "../utils/reset-grid";
-import {
-	EXTENDED_SLEEP_TIME,
-	MAZES,
-	PATHFINDING_ALGORITHMS,
-	SLEEP_TIME,
-	SPEEDS,
-} from "../utils/constants";
+import { MAZES, PATHFINDING_ALGORITHMS, SPEEDS } from "../utils/constants";
 
 import { usePathfinding } from "../hooks/use-path-finding";
 import { useSpeed } from "../hooks/use-speed";
@@ -98,25 +92,15 @@ export const Nav = ({
 			endTile,
 		});
 
-		animatePath(visitedTiles, path, startTile, endTile, speed);
 		setIsDisabled(true);
-
 		isVizRunningRef.current = true;
 
-		// Optimized sleep time calculation
-		const visitedDelay = SLEEP_TIME * (visitedTiles.length + SLEEP_TIME * 2);
-		const pathDelay = EXTENDED_SLEEP_TIME * (path.length + 40);
-		const speedMultiplier = SPEEDS.find((s) => s.value === speed)!.value;
-
-		const totalSleepTime = visitedDelay + pathDelay * speedMultiplier;
-
-		setTimeout(() => {
-			// const newGrid = grid.slice();
+		animatePath(visitedTiles, path, startTile, endTile, speed).then(() => {
 			setGrid(sanitizedGrid);
 			setIsGraphVisualized(true);
 			setIsDisabled(false);
 			isVizRunningRef.current = false;
-		}, totalSleepTime);
+		});
 	};
 
 	return (

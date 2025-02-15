@@ -81,6 +81,17 @@ export const dropFromQueue = (tile: TileType, queue: TileType[]) => {
 	}
 };
 
+export const handleAnimationEnd = (
+	element: HTMLElement,
+	callback: () => void
+) => {
+	const onAnimationEnd = () => {
+		element.removeEventListener("animationend", onAnimationEnd);
+		callback();
+	};
+	element.addEventListener("animationend", onAnimationEnd);
+};
+
 export class DSU {
 	private parent: Map<string, string>;
 	private rank: Map<string, number>;
