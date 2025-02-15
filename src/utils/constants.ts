@@ -1,7 +1,7 @@
 import { AlgorithmSelectType, MazeSelectType, SpeedSelectType } from "./types";
 
 export const MAX_ROWS = 39;
-export const MAX_COLS = 49;
+export const MAX_COLS = 99;
 
 export const START_TILE_CONFIG = {
 	row: 1,
@@ -41,6 +41,7 @@ export const MAZES: MazeSelectType[] = [
 	{ name: "Recursive Division", value: "RECURSIVE_DIVISION" },
 	{ name: "Kruskals Algorithm", value: "KRUSKALS_ALGORITHM" },
 	{ name: "Prims Algorithm", value: "PRIMS_ALGORITHM" },
+	{ name: "Wilsons Algorithm", value: "WILSONS_ALGORITHM" },
 ];
 
 export const PATHFINDING_ALGORITHMS: AlgorithmSelectType[] = [

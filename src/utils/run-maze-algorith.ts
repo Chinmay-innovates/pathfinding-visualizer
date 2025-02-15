@@ -2,6 +2,7 @@ import { binaryTree } from "../lib/algorithms/maze/binary-tree";
 import { kruskalsMaze } from "../lib/algorithms/maze/kruskals-maze";
 import { primsMaze } from "../lib/algorithms/maze/prims-maze";
 import { recursiveDivision } from "../lib/algorithms/maze/recursive-division";
+import { wilsonsMaze } from "../lib/algorithms/maze/wilsons-maze";
 import { DEFAULT_SPEED, MAX_COLS, MAX_ROWS, SPEEDS } from "./constants";
 import { ConstructBorder } from "./construct-border";
 import { GridType, MazeType, SpeedType, TileType } from "./types";
@@ -47,5 +48,7 @@ export const runMazeAlgorithm = async ({
 		await kruskalsMaze(grid, startTile, endTile, setIsDisabled, speed);
 	} else if (maze === "PRIMS_ALGORITHM") {
 		await primsMaze(grid, startTile, endTile, setIsDisabled, speed);
+	} else if (maze === "WILSONS_ALGORITHM") {
+		await wilsonsMaze(grid, startTile, endTile, setIsDisabled, speed);
 	}
 };

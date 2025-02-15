@@ -9,7 +9,8 @@ export type MazeType =
 	| "BINARY_TREE"
 	| "RECURSIVE_DIVISION"
 	| "KRUSKALS_ALGORITHM"
-	| "PRIMS_ALGORITHM";
+	| "PRIMS_ALGORITHM"
+	| "WILSONS_ALGORITHM";
 export interface MazeSelectType {
 	name: string;
 	value: MazeType;
