@@ -26,6 +26,7 @@ export type TileType = {
 	isTraversed: boolean;
 	isStart: boolean;
 	parent: TileType | null;
+	cost?: number;
 };
 
 export type GridType = TileType[][];
