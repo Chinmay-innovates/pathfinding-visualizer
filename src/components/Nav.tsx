@@ -85,12 +85,11 @@ export const Nav = ({
 		isVizRunningRef.current = true;
 
 		// Optimized sleep time calculation
-		const visitedDelay = SLEEP_TIME * visitedTiles.length;
-		const pathDelay = EXTENDED_SLEEP_TIME * path.length;
+		const visitedDelay = SLEEP_TIME * (visitedTiles.length + SLEEP_TIME * 2);
+		const pathDelay = EXTENDED_SLEEP_TIME * (path.length + 50);
 		const speedMultiplier = SPEEDS.find((s) => s.value === speed)!.value;
 
-		// Final sleep time (with a small buffer of 300ms for UI updates)
-		const totalSleepTime = (visitedDelay + pathDelay) * speedMultiplier + 300;
+		const totalSleepTime = visitedDelay + pathDelay * speedMultiplier;
 
 		setTimeout(() => {
 			const newGrid = grid.slice();

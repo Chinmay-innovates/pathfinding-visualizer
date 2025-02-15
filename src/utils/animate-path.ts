@@ -16,6 +16,11 @@ export const animatePath = (
 	endTile: TileType,
 	speed: SpeedType
 ) => {
+	const speedMultiplier = SPEEDS.find((s) => s.value === speed)!.value;
+	const visitedDelayPerTile = SLEEP_TIME * speedMultiplier;
+	const pathDelayPerTile = EXTENDED_SLEEP_TIME * speedMultiplier;
+
+	// Animate visited tiles
 	for (let i = 0; i < visitedTiles.length; i++) {
 		setTimeout(() => {
 			const tile = visitedTiles[i];
@@ -25,9 +30,10 @@ export const animatePath = (
 					`${tile.row}-${tile.col}`
 				)!.className = `${TRAVERSED_TILE_STYLE} animate-traversed`;
 			}
-		}, SLEEP_TIME * i * SPEEDS.find((s) => s.value === speed)!.value);
+		}, visitedDelayPerTile * i);
 	}
 
+	// Delay the start of the path animation by the total time of the visited animation
 	setTimeout(() => {
 		for (let i = 0; i < path.length; i++) {
 			setTimeout(() => {
@@ -38,7 +44,7 @@ export const animatePath = (
 						`${tile.row}-${tile.col}`
 					)!.className = `${PATH_TILE_STYLE} animate-path`;
 				}
-			}, EXTENDED_SLEEP_TIME * i * SPEEDS.find((s) => s.value === speed)!.value);
+			}, pathDelayPerTile * i);
 		}
-	}, SLEEP_TIME * visitedTiles.length * SPEEDS.find((s) => s.value === speed)!.value);
+	}, visitedDelayPerTile * visitedTiles.length);
 };
