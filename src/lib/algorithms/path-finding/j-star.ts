@@ -9,8 +9,8 @@ const jump = (
 	direction: { row: number; col: number },
 	endTile: TileType
 ): TileType | null => {
-	let nextRow = currTile.row + direction.row;
-	let nextCol = currTile.col + direction.col;
+	const nextRow = currTile.row + direction.row;
+	const nextCol = currTile.col + direction.col;
 
 	// Check boundaries to prevent out-of-bounds access
 	if (
@@ -144,7 +144,7 @@ export const J_STAR = (
 				{ row: 1, col: 1 }, // Down-right (diagonal)
 			];
 
-			for (let dir of directions) {
+			for (const dir of directions) {
 				const jumpedTile = jump(grid, currTile, dir, endTile);
 
 				if (jumpedTile) {
