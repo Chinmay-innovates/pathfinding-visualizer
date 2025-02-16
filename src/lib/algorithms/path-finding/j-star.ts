@@ -1,6 +1,7 @@
+import { MAX_COLS, MAX_ROWS } from "../../../utils/constants";
 import { constructPath } from "../../../utils/construct-path";
-import { dropFromQueue, isEqual } from "../../../utils/helpers";
-import { initFunctionCost, initHeuristiCost } from "../../../utils/heuristic";
+import { chebyshevCost, dropFromQueue, isEqual } from "../../../utils/helpers";
+import { initFunctionCost } from "../../../utils/heuristic";
 import { GridType, TileType } from "../../../utils/types";
 
 const jump = (
@@ -16,8 +17,8 @@ const jump = (
 	if (
 		nextRow < 0 ||
 		nextCol < 0 ||
-		nextRow >= grid.length ||
-		nextCol >= grid[0].length
+		nextRow >= MAX_ROWS ||
+		nextCol >= MAX_COLS
 	) {
 		return null; // Prevent accessing out of bounds
 	}
@@ -90,7 +91,7 @@ export const J_STAR = (
 	endTile: TileType
 ) => {
 	const visitedTiles: TileType[] = [];
-	const heuristicCost = initHeuristiCost(grid, endTile);
+	const heuristicCost = chebyshevCost(grid, endTile); // init HeuristiCost
 	const functionCost = initFunctionCost();
 
 	const base = grid[startTile.row][startTile.col];
@@ -99,71 +100,49 @@ export const J_STAR = (
 		base.distance + heuristicCost[base.row][base.col];
 	base.isTraversed = true;
 
-	const unTraversed = [base]; // Initialize the queue with the start tile
-
-	console.log("Start tile:", startTile);
+	const unTraversed = [base];
 
 	while (unTraversed.length > 0) {
-		// Sorting by function cost (f = g + h)
 		unTraversed.sort((a, b) => {
 			if (functionCost[a.row][a.col] === functionCost[b.row][b.col])
 				return b.distance - a.distance;
 			return functionCost[a.row][a.col] - functionCost[b.row][b.col];
 		});
 
-		// Check if the queue is empty before accessing
-		if (unTraversed.length === 0) {
-			console.error("Untraversed queue is empty!");
-			break; // Exit if the queue is empty unexpectedly
-		}
-
 		const currTile: TileType = unTraversed.shift() as TileType;
 		if (currTile) {
-			console.log(`Processing tile: ${currTile.row}, ${currTile.col}`);
-
 			if (currTile.isWall) continue;
 			if (currTile.distance === Infinity) break;
 
 			currTile.isTraversed = true;
 			visitedTiles.push(currTile);
 
-			console.log(`Visited: ${currTile.row}, ${currTile.col}`); // Debug log for visited nodes
-
-			// If we found the end tile, break
 			if (isEqual(currTile, endTile)) break;
 
-			// Directions to move (right, down, left, up, and diagonal directions)
 			const directions = [
-				{ row: -1, col: 0 }, // Up
-				{ row: 1, col: 0 }, // Down
-				{ row: 0, col: -1 }, // Left
-				{ row: 0, col: 1 }, // Right
-				{ row: -1, col: -1 }, // Up-left (diagonal)
-				{ row: -1, col: 1 }, // Up-right (diagonal)
-				{ row: 1, col: -1 }, // Down-left (diagonal)
-				{ row: 1, col: 1 }, // Down-right (diagonal)
+				{ row: -1, col: 0 },
+				{ row: 1, col: 0 },
+				{ row: 0, col: -1 },
+				{ row: 0, col: 1 },
+				{ row: -1, col: -1 },
+				{ row: -1, col: 1 },
+				{ row: 1, col: -1 },
+				{ row: 1, col: 1 },
 			];
 
 			for (const dir of directions) {
 				const jumpedTile = jump(grid, currTile, dir, endTile);
-
 				if (jumpedTile) {
-					const distance = currTile.distance + 1;
+					const dx = Math.abs(jumpedTile.row - currTile.row);
+					const dy = Math.abs(jumpedTile.col - currTile.col);
+					const distance = currTile.distance + Math.max(dx, dy);
 
-					// If the new distance is shorter, update the tile's cost and add it to the queue
 					if (distance < jumpedTile.distance) {
 						dropFromQueue(jumpedTile, unTraversed);
 						jumpedTile.distance = distance;
 						functionCost[jumpedTile.row][jumpedTile.col] =
-							jumpedTile.distance +
-							heuristicCost[jumpedTile.row][jumpedTile.col];
+							distance + heuristicCost[jumpedTile.row][jumpedTile.col];
 						jumpedTile.parent = currTile;
-
-						// Debug log for queue updates
-						console.log(
-							`Adding tile to queue: ${jumpedTile.row}, ${jumpedTile.col}`
-						);
-
 						unTraversed.push(jumpedTile);
 					}
 				}
@@ -171,7 +150,5 @@ export const J_STAR = (
 		}
 	}
 
-	// Ensure animation is triggered after pathfinding
-	const path = constructPath(grid, endTile, visitedTiles);
-	return path;
+	return constructPath(grid, endTile, visitedTiles);
 };

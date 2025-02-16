@@ -154,6 +154,18 @@ export const getNeighbors = (grid: GridType, tile: TileType) => {
 	return neighbors;
 };
 
+export const chebyshevCost = (grid: GridType, endTile: TileType) => {
+	const heuristic: number[][] = [];
+	for (let row = 0; row < grid.length; row++) {
+		heuristic[row] = [];
+		for (let col = 0; col < grid[0].length; col++) {
+			const dx = Math.abs(row - endTile.row);
+			const dy = Math.abs(col - endTile.col);
+			heuristic[row][col] = Math.max(dx, dy); // Chebyshev distance
+		}
+	}
+	return heuristic;
+};
 export class MinHeap<T> {
 	private heap: T[];
 	private compare: (a: T, b: T) => number;
