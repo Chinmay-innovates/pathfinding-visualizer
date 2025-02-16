@@ -8,49 +8,68 @@ export default {
 			keyframes: {
 				path: {
 					"0%": {
-						transform: "scale(0.3)",
+						transform: "scale(0.5)",
 						backgroundColor: "#E11D48BF",
+						// boxShadow: "0px 0px 10px #E10D46BF",
 						borderRadius: "100%",
 					},
 					"50%": {
 						backgroundColor: "#EA580CBF",
+						transform: "scale(1.1)",
 					},
 					"75%": {
-						transform: "scale(1.2)",
+						transform: "scale(1.3)",
 						backgroundColor: "#FB923CBF",
+						// boxShadow: "0px 0px 20px #FB925CBF",
 					},
 					"90%": {
-						transform: "scale(0.8)",
+						transform: "scale(1)",
 						backgroundColor: "#FDE68A",
 					},
 					"100%": {
 						transform: "scale(1)",
+						boxShadow: "none",
 					},
 				},
+
 				traversed: {
 					"0%": {
-						transform: "scale(0.3)",
-						backgroundColor: "#9333EABF",
+						transform: "scale(0.5)",
+						backgroundColor: "#4C1D95BF", // Deep purple
+						boxShadow: "0px 0px 10px #4C1D95", // Soft glow effect
 						borderRadius: "100%",
 					},
-					"50%": {
-						backgroundColor: "#4F46e4BF",
+					"40%": {
+						backgroundColor: "#5B21B6BF", // Richer purple
+						transform: "scale(1.1)",
 					},
-					"75%": {
+					"70%": {
 						transform: "scale(1.2)",
-						backgroundColor: "#3B82F6BF",
+						backgroundColor: "#6366F1BF", // Bright blue
+						boxShadow: "0px 0px 15px #6366F1",
+					},
+					"90%": {
+						transform: "scale(1)",
+						backgroundColor: "#60A5FA", // Lighter blue
 					},
 					"100%": {
 						transform: "scale(1)",
-						backgroundColor: "#22D3EE",
+						boxShadow: "none",
 					},
 				},
+
 				wall: {
 					"0%": {
 						transform: "scale(0.7)",
+						opacity: 0.5,
+					},
+					"50%": {
+						transform: "scale(1.05)",
+						opacity: 1,
 					},
 					"100%": {
 						transform: "scale(1)",
+						opacity: 1,
 					},
 				},
 				"wall-removal": {
@@ -70,9 +89,9 @@ export default {
 			},
 			animation: {
 				"wall-removal": "wall-removal 0.3s ease-out forwards",
-				traversed: "traversed 0.5s cubic-bezier(0, 0, 0.2, 1)",
+				traversed: "traversed 1.5s cubic-bezier(0, 0, 0.2, 1)",
 				path: "path 2.5s cubic-bezier(0, 0, 0.2, 1)",
-				wall: "wall 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+				wall: "wall 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards",
 			},
 		},
 	},
