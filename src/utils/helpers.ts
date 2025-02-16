@@ -135,15 +135,24 @@ export function shuffleArray(array: _ShuffleArray) {
 	}
 }
 
-export function getNeighbors(grid: GridType, tile: TileType): TileType[] {
+// Example 4-directional neighbor check
+export const getNeighbors = (grid: GridType, tile: TileType) => {
+	const dirs = [
+		[-1, 0],
+		[1, 0],
+		[0, -1],
+		[0, 1],
+	];
 	const neighbors: TileType[] = [];
-	const { row, col } = tile;
-	if (row > 0) neighbors.push(grid[row - 1][col]);
-	if (row < grid.length - 1) neighbors.push(grid[row + 1][col]);
-	if (col > 0) neighbors.push(grid[row][col - 1]);
-	if (col < grid.length - 1) neighbors.push(grid[row][col + 1]);
+	for (const [dr, dc] of dirs) {
+		const r = tile.row + dr;
+		const c = tile.col + dc;
+		if (r >= 0 && r < grid.length && c >= 0 && c < grid[0].length) {
+			neighbors.push(grid[r][c]);
+		}
+	}
 	return neighbors;
-}
+};
 
 export class MinHeap<T> {
 	private heap: T[];
@@ -216,5 +225,33 @@ export class MinHeap<T> {
 
 	isEmpty(): boolean {
 		return this.heap.length === 0;
+	}
+}
+export class Queue<T> {
+	private data: T[] = [];
+	private head = 0;
+
+	enqueue(item: T): void {
+		this.data.push(item);
+	}
+
+	dequeue(): T | undefined {
+		if (this.head >= this.data.length) return undefined;
+		const item = this.data[this.head];
+		this.head++;
+		// Periodically clean up memory
+		if (this.head > 1000 && this.head > this.data.length / 2) {
+			this.data = this.data.slice(this.head);
+			this.head = 0;
+		}
+		return item;
+	}
+
+	size(): number {
+		return this.data.length - this.head;
+	}
+
+	isEmpty(): boolean {
+		return this.size() === 0;
 	}
 }

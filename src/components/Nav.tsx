@@ -35,8 +35,18 @@ export const Nav = ({
 
 	const handleGenerateMaze = (maze: MazeType) => {
 		if (maze === "NONE") {
+			const newGrid = grid.map((row) =>
+				row.map((tile) => ({
+					...tile,
+					isWall: false,
+					isVisited: false,
+					isPath: false,
+				}))
+			);
 			setMaze(maze);
-			resetGrid(grid);
+			setGrid(newGrid); // Update grid with new references
+			setIsGraphVisualized(false);
+			setIsDisabled(false); // Enable UI if needed
 			return;
 		}
 
@@ -50,7 +60,8 @@ export const Nav = ({
 			setIsDisabled,
 			speed,
 		});
-		const newGrid = grid.slice();
+		//  create a new grid to avoid mutation
+		const newGrid = grid.map((row) => [...row]); // Shallow copy rows if necessary
 		setGrid(newGrid);
 		setIsGraphVisualized(false);
 	};

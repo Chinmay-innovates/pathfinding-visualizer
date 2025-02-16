@@ -4,8 +4,8 @@ export const MAX_ROWS = 39;
 export const MAX_COLS = 99;
 
 export const START_TILE_CONFIG = {
-	row: 1,
-	col: 1,
+	row: 7,
+	col: 8,
 	isEnd: false,
 	isWall: false,
 	isPath: false,
@@ -16,8 +16,8 @@ export const START_TILE_CONFIG = {
 };
 
 export const END_TILE_CONFIG = {
-	row: MAX_ROWS - 2,
-	col: MAX_COLS - 2,
+	row: MAX_ROWS - 5,
+	col: MAX_COLS - 5,
 	isEnd: false,
 	isWall: false,
 	isPath: false,
@@ -51,6 +51,7 @@ export const PATHFINDING_ALGORITHMS: AlgorithmSelectType[] = [
 	{ name: "Depth First Search", value: "DFS" },
 	{ name: "Greedy Best First Search", value: "GBFS" },
 	{ name: "Bidirectional BFS", value: "BIDIRECTIONAL_BFS" },
+	{ name: "J-Star", value: "J_STAR" },
 ];
 
 export const SPEEDS: SpeedSelectType[] = [

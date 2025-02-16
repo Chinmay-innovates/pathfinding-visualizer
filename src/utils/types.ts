@@ -4,7 +4,8 @@ export type AlgorithmType =
 	| "BFS"
 	| "DFS"
 	| "GBFS"
-	| "BIDIRECTIONAL_BFS";
+	| "BIDIRECTIONAL_BFS"
+	| "J_STAR";
 export interface AlgorithmSelectType {
 	name: string;
 	value: AlgorithmType;
