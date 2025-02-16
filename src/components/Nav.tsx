@@ -36,11 +36,7 @@ export const Nav = ({
 	const handleGenerateMaze = (maze: MazeType) => {
 		if (maze === "NONE") {
 			setMaze(maze);
-			resetGrid({
-				grid,
-				startTile,
-				endTile,
-			});
+			resetGrid(grid);
 			return;
 		}
 
@@ -62,28 +58,11 @@ export const Nav = ({
 	const handleRunVisualization = () => {
 		if (isGraphVisualized) {
 			setIsGraphVisualized(false);
-			const resetGrid = grid.map((row) =>
-				row.map((cell) => ({
-					...cell,
-					isTraversed: false,
-					isPath: false,
-					distance: Infinity,
-					parent: null,
-				}))
-			);
-			setGrid(resetGrid);
+			resetGrid(grid);
 			return;
 		}
 
-		const sanitizedGrid = grid.map((row) =>
-			row.map((cell) => ({
-				...cell,
-				isTraversed: false,
-				isPath: false,
-				distance: Infinity,
-				parent: null,
-			}))
-		);
+		const sanitizedGrid = grid.map((row) => row.map((tile) => ({ ...tile })));
 
 		const { path, visitedTiles } = runPathFindingAlgorithm({
 			algorithm,

@@ -35,28 +35,35 @@ export const Tile = ({
 	handleMouseUp: MouseFunction;
 	handleMouseEnter: MouseFunction;
 }) => {
-	let tileTyleStyle;
+	// const tileTyleStyle = isStart
+	// 	? START_TILE_STYLE
+	// 	: isEnd
+	// 	? END_TILE_STYLE
+	// 	: isWall
+	// 	? WALL_TILE_STYLE
+	// 	: isPath
+	// 	? PATH_TILE_STYLE
+	// 	: isTraversed
+	// 	? TRAVERSED_TILE_STYLE
+	// 	: BASE_TILE_STYLE;
 
-	if (isStart) {
-		tileTyleStyle = START_TILE_STYLE;
-	} else if (isEnd) {
-		tileTyleStyle = END_TILE_STYLE;
-	} else if (isWall) {
-		tileTyleStyle = WALL_TILE_STYLE;
-	} else if (isPath) {
-		tileTyleStyle = PATH_TILE_STYLE;
-	} else if (isTraversed) {
-		tileTyleStyle = TRAVERSED_TILE_STYLE;
-	} else {
-		tileTyleStyle = BASE_TILE_STYLE;
-	}
+	// const borderStyle =
+	// 	row === MAX_ROWS - 1 ? "border-b" : col === 0 ? "border-l" : "";
+	// const edgeStyle = row === MAX_ROWS - 1 && col === 0 ? "border-l" : "";
 
-	const borderStyle =
-		row === MAX_ROWS - 1 ? "border-b" : col === 0 ? "border-l" : "";
-	const edgeStyle = row === MAX_ROWS - 1 && col === 0 ? "border-l" : "";
+	const className = twMerge(
+		BASE_TILE_STYLE,
+		isTraversed && TRAVERSED_TILE_STYLE,
+		isPath && PATH_TILE_STYLE,
+		isWall && WALL_TILE_STYLE,
+		isStart && START_TILE_STYLE,
+		isEnd && END_TILE_STYLE,
+		row === MAX_ROWS - 1 ? "border-b" : col === 0 ? "border-l" : "", // border styles
+		row === MAX_ROWS - 1 && col === 0 ? "border-l" : "" // edge styles
+	);
 	return (
 		<div
-			className={twMerge(tileTyleStyle, borderStyle, edgeStyle)}
+			className={className}
 			id={`${row}-${col}`}
 			onMouseDown={() => handleMouseDown(row, col)}
 			onMouseUp={() => handleMouseUp(row, col)}

@@ -50,6 +50,7 @@ export const PATHFINDING_ALGORITHMS: AlgorithmSelectType[] = [
 	{ name: "Breath First Search", value: "BFS" },
 	{ name: "Depth First Search", value: "DFS" },
 	{ name: "Greedy Best First Search", value: "GBFS" },
+	{ name: "Bidirectional BFS", value: "BIDIRECTIONAL_BFS" },
 ];
 
 export const SPEEDS: SpeedSelectType[] = [

@@ -135,6 +135,16 @@ export function shuffleArray(array: _ShuffleArray) {
 	}
 }
 
+export function getNeighbors(grid: GridType, tile: TileType): TileType[] {
+	const neighbors: TileType[] = [];
+	const { row, col } = tile;
+	if (row > 0) neighbors.push(grid[row - 1][col]);
+	if (row < grid.length - 1) neighbors.push(grid[row + 1][col]);
+	if (col > 0) neighbors.push(grid[row][col - 1]);
+	if (col < grid.length - 1) neighbors.push(grid[row][col + 1]);
+	return neighbors;
+}
+
 export class MinHeap<T> {
 	private heap: T[];
 	private compare: (a: T, b: T) => number;
