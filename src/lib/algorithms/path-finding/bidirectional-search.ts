@@ -1,3 +1,4 @@
+import { constructBiPath } from "../../../utils/construct-bi-path";
 import { getNeighbors, Queue } from "../../../utils/helpers";
 import { GridType, TileType } from "../../../utils/types";
 
@@ -68,24 +69,10 @@ export const BIDIRECTIONAL_BFS = (
 
 	if (!meetingNode) return { path: [], visitedTiles };
 
-	// Reconstruct path from meeting node
-	const pathFromStart: TileType[] = [];
-	let node: TileType | null = meetingNode;
-	while (node !== null) {
-		pathFromStart.push(node);
-		node = forwardParents.get(node) || null;
-	}
-	pathFromStart.reverse();
-
-	const pathFromEnd: TileType[] = [];
-	node = backwardParents.get(meetingNode) || null;
-	while (node !== null) {
-		pathFromEnd.push(node);
-		node = backwardParents.get(node) || null;
-	}
-
-	const fullPath = [...pathFromStart, ...pathFromEnd];
-	fullPath.forEach((tile) => (tile.isPath = true));
-
-	return { path: fullPath, visitedTiles };
+	return constructBiPath(
+		forwardParents,
+		backwardParents,
+		meetingNode,
+		visitedTiles
+	);
 };

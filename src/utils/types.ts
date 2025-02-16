@@ -5,6 +5,7 @@ export type AlgorithmType =
 	| "DFS"
 	| "GBFS"
 	| "BIDIRECTIONAL_BFS"
+	| "BIDIRECTIONAL_ASTAR"
 	| "J_STAR";
 export interface AlgorithmSelectType {
 	name: string;
@@ -33,6 +34,8 @@ export type TileType = {
 	isTraversed: boolean;
 	isStart: boolean;
 	parent: TileType | null;
+	fScore: number;
+	gScore: number;
 };
 
 export type GridType = TileType[][];

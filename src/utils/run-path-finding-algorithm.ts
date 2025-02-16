@@ -3,11 +3,13 @@ import { DFS } from "../lib/algorithms/path-finding/dfs";
 import { A_STAR } from "../lib/algorithms/path-finding/a-star";
 import { DIJKSTRA } from "../lib/algorithms/path-finding/dijkstra";
 
-import { AlgorithmType, GridType, TileType } from "./types";
 import { GBFS } from "../lib/algorithms/path-finding/gbfs";
-import { resetGrid } from "./reset-grid";
-import { BIDIRECTIONAL_BFS } from "../lib/algorithms/path-finding/bidirectional-search";
 import { J_STAR } from "../lib/algorithms/path-finding/j-star";
+import { BIDIRECTIONAL_A_STAR } from "../lib/algorithms/path-finding/bidirectional-a-star";
+import { BIDIRECTIONAL_BFS } from "../lib/algorithms/path-finding/bidirectional-search";
+
+import { AlgorithmType, GridType, TileType } from "./types";
+import { resetGrid } from "./reset-grid";
 
 export const runPathFindingAlgorithm = ({
 	algorithm,
@@ -34,6 +36,8 @@ export const runPathFindingAlgorithm = ({
 			return GBFS(grid, startTile, endTile);
 		case "BIDIRECTIONAL_BFS":
 			return BIDIRECTIONAL_BFS(grid, startTile, endTile);
+		case "BIDIRECTIONAL_ASTAR":
+			return BIDIRECTIONAL_A_STAR(grid, startTile, endTile);
 		case "J_STAR":
 			return J_STAR(grid, startTile, endTile);
 		default:

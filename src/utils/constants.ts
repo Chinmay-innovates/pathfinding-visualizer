@@ -1,7 +1,7 @@
 import { AlgorithmSelectType, MazeSelectType, SpeedSelectType } from "./types";
 
 export const MAX_ROWS = 39;
-export const MAX_COLS = 49;
+export const MAX_COLS = 99;
 
 export const START_TILE_CONFIG = {
 	row: 7,
@@ -52,6 +52,7 @@ export const PATHFINDING_ALGORITHMS: AlgorithmSelectType[] = [
 	{ name: "Depth First Search", value: "DFS" },
 	{ name: "Greedy Best First Search", value: "GBFS" },
 	{ name: "Bidirectional BFS", value: "BIDIRECTIONAL_BFS" },
+	{ name: "Bidirectional A-Star", value: "BIDIRECTIONAL_ASTAR" },
 ];
 
 export const SPEEDS: SpeedSelectType[] = [

@@ -11,6 +11,8 @@ export const resetGrid = (grid: GridType) => {
 			tile.isPath = false;
 			tile.distance = Infinity;
 			tile.parent = null;
+			tile.gScore = Infinity;
+			tile.fScore = Infinity;
 
 			// Preserve walls between runs
 			// tile.isWall = false;
