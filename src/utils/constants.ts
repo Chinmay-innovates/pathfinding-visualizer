@@ -13,6 +13,8 @@ export const START_TILE_CONFIG = {
 	isStart: false,
 	isTraversed: false,
 	parent: null,
+	fScore: 0,
+	gScore: 0,
 };
 
 export const END_TILE_CONFIG = {
@@ -25,6 +27,8 @@ export const END_TILE_CONFIG = {
 	isStart: false,
 	isTraversed: false,
 	parent: null,
+	fScore: 0,
+	gScore: 0,
 };
 
 export const BASE_TILE_STYLE =
