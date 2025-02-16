@@ -64,7 +64,6 @@ export const Tile = ({
 	return (
 		<div
 			className={className}
-			// style={{ width: `calc(100% / ${columns})` }}
 			id={`${row}-${col}`}
 			onMouseDown={() => handleMouseDown(row, col)}
 			onMouseUp={() => handleMouseUp(row, col)}

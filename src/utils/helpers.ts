@@ -1,22 +1,31 @@
 import { MAX_COLS, MAX_ROWS } from "./constants";
 import { _ShuffleArray, GridType, TileType } from "./types";
 
-const createRow = (row: number, startTile: TileType, endTile: TileType) => {
-	const currentRow = [];
+const createRow = (
+	row: number,
+	startTile: TileType,
+	endTile: TileType
+): TileType[] => {
+	const rowTiles: TileType[] = [];
 	for (let col = 0; col < MAX_COLS; col++) {
-		currentRow.push({
+		const isStart = row === startTile.row && col === startTile.col;
+		const isEnd = row === endTile.row && col === endTile.col;
+
+		rowTiles.push({
 			row,
 			col,
-			isEnd: row === endTile.row && col === endTile.col,
-			isWall: false,
-			isPath: false,
-			distance: Infinity,
-			isStart: row === startTile.row && col === startTile.col,
-			isTraversed: false,
-			parent: null,
+			isStart,
+			isEnd,
+			isWall: false, // Default value, can be modified later
+			isPath: false, // Default value
+			distance: Infinity, // Default value
+			isTraversed: false, // Default value
+			parent: null, // Default value
+			fScore: Infinity, // Default value
+			gScore: Infinity, // Default value
 		});
 	}
-	return currentRow;
+	return rowTiles;
 };
 
 export const createGrid = (startTile: TileType, endTile: TileType) => {
