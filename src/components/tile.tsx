@@ -8,6 +8,7 @@ import {
 	TRAVERSED_TILE_STYLE,
 	WALL_TILE_STYLE,
 } from "../utils/constants";
+import { usePathfinding } from "../hooks/use-path-finding";
 
 interface MouseFunction {
 	(row: number, col: number): void;
@@ -61,9 +62,11 @@ export const Tile = ({
 		row === MAX_ROWS - 1 ? "border-b" : col === 0 ? "border-l" : "", // border styles
 		row === MAX_ROWS - 1 && col === 0 ? "border-l" : "" // edge styles
 	);
+	const { columns } = usePathfinding();
 	return (
 		<div
 			className={className}
+			// style={{ width: `calc(100% / ${columns})` }}
 			id={`${row}-${col}`}
 			onMouseDown={() => handleMouseDown(row, col)}
 			onMouseUp={() => handleMouseUp(row, col)}

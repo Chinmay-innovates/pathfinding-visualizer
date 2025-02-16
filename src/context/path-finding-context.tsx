@@ -8,6 +8,8 @@ interface IPathFindingContext {
 	setMaze: (maze: MazeType) => void;
 	grid: GridType;
 	setGrid: (grid: GridType) => void;
+	columns: number;
+	setColumns: (columns: number) => void;
 	isGraphVisualized: boolean;
 	setIsGraphVisualized: (isGraphVisualized: boolean) => void;
 }

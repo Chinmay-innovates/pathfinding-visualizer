@@ -27,6 +27,8 @@ export const Nav = ({
 		setGrid,
 		isGraphVisualized,
 		setIsGraphVisualized,
+		columns,
+		setColumns,
 		algorithm,
 		setAlgorithm,
 	} = usePathfinding();
@@ -124,7 +126,19 @@ export const Nav = ({
 					options={MAZES}
 				/>
 			</div>
-
+			<div className="flex items-center space-x-2 text-white">
+				<label>Columns:</label>
+				<input
+					type="range"
+					min="49"
+					max="99"
+					value={columns}
+					onChange={(e) => setColumns(Number(e.target.value))}
+					disabled={isDisabled}
+					className="w-24"
+				/>
+				<span>{columns}</span>
+			</div>
 			<Select
 				label="Speed"
 				value={speed}
